@@ -20,7 +20,7 @@
             </div>
         </div>
         <h1>BlockPad</h1>
-        <h5>Save your public data permanently on the fantom blockchain with Meatamask</h5>
+        <h5>Save your public data permanently on the Ethereum Classic blockchain with Meatamask</h5>
         <div class="mb-3">
             <label for="hintInput" class="form-label">Hint:</label>
             <input type="text" class="form-control" id="hintInput" placeholder="Enter hint">
@@ -63,11 +63,11 @@
                     // Request account access if needed
                     await window.ethereum.request({ method: 'eth_requestAccounts' });
                     const networkId = await web3.eth.net.getId();
-                 
-					if (networkId ==250) {
-					   document.getElementById('networkName').innerText = "Fantom";
+                 console.log("networkId:",networkId)
+					if (networkId ==1) {
+					   document.getElementById('networkName').innerText = "ETC";
 					}else{
-					   document.getElementById('networkName').innerText = "Current network is not fantom.";
+					   document.getElementById('networkName').innerText = "Current network is not Ethereum Classic.";
 					   return
 
 					}
@@ -81,8 +81,11 @@
                 }
             }  
 
+
+//etc:0xA02923959f586c1a8DFe969Fa2977403628cE367
+//fantom:0x8d58070A4A43C9e74B7D847658139aB0B7Fd6D99
                         // Contract address and ABI
-            const contractAddress = '0x8d58070A4A43C9e74B7D847658139aB0B7Fd6D99';
+            const contractAddress = '0xA02923959f586c1a8DFe969Fa2977403628cE367';
             const contractABI = [{"inputs":[{"internalType":"string","name":"_Hint","type":"string"},{"internalType":"string","name":"_StoreText","type":"string"}],"name":"addData","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_feeAmount","type":"uint256"}],"name":"setFeeAmount","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address payable","name":"_receiver","type":"address"}],"name":"TransferETH","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address payable","name":"_receiver","type":"address"},{"internalType":"address","name":"TokenAddress","type":"address"}],"name":"TransferToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"stateMutability":"payable","type":"fallback"},{"stateMutability":"payable","type":"receive"},{"inputs":[],"name":"contractOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"feeAmount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"_value","type":"string"}],"name":"searchData","outputs":[{"internalType":"string","name":"","type":"string"},{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"structArray","outputs":[{"internalType":"string","name":"Hint","type":"string"},{"internalType":"string","name":"StoreText","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"structArrayLength","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]
 
             // Create contract instance
