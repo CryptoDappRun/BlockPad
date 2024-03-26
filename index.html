@@ -11,6 +11,14 @@
 
 <body>
     <div class="container mt-5">
+    <div class="row">
+            <div class="col text-end">
+                <span id="networkName"></span> 
+                <br>
+                <span id="accountAddress"></span> 
+                    <button id="installMetamaskBtn" class="btn btn-primary d-none">Install Metamask</button>
+            </div>
+        </div>
         <h1>BlockPad</h1>
         <h5>Save your public data permanently on the fantom blockchain with Meatamask</h5>
         <div class="mb-3">
@@ -40,19 +48,38 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             // Initialize Web3.js
-            if (window.ethereum) {
+            // Initialize Web3.js
+
+            // Check if MetaMask is installed
+            if (typeof window.ethereum === 'undefined') {
+                document.getElementById('installMetamaskBtn').classList.remove('d-none');
+                document.getElementById('installMetamaskBtn').addEventListener('click', () => {
+                    window.open('https://metamask.io', '_blank');
+                });
+            }else{
+
                 window.web3 = new Web3(window.ethereum);
                 try {
                     // Request account access if needed
                     await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const networkId = await web3.eth.net.getId();
+                 
+					if (networkId ==250) {
+					   document.getElementById('networkName').innerText = "Fantom";
+					}else{
+					   document.getElementById('networkName').innerText = "Current network is not fantom.";
+					   return
+
+					}
+
+                  
+                    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                    const accountAddress = accounts[0];
+                    document.getElementById('accountAddress').innerText = accountAddress;
                 } catch (error) {
-                    console.error('User denied account access');
+                    console.error('User denied account access or network error:', error);
                 }
-            } else if (window.web3) {
-                window.web3 = new Web3(window.web3.currentProvider);
-            } else {
-                console.error('Non-Ethereum browser detected. You should consider trying MetaMask!');
-            }
+            }  
 
                         // Contract address and ABI
             const contractAddress = '0x8d58070A4A43C9e74B7D847658139aB0B7Fd6D99';
